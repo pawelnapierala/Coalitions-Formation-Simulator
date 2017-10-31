@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<import resource="classpath:de/dailab/jiactng/agentcore/conf/AgentNode.xml" />
+<import resource="classpath:de/dailab/jiactng/agentcore/conf/Agent.xml" />
+<import resource="classpath:de/dailab/jiactng/agentcore/conf/JMSMessaging.xml" />
+<bean name="CoalitionFormationNode" parent="NodeWithJMX">
+<property name="agents">
+<list>
+<ref bean="Agent_2" />
+<ref bean="Agent_3" />
+<ref bean="Agent_4" />
+<ref bean="Agent_1" />
+</list>
+</property>
+</bean>
+<bean name="Agent_2" parent="SimpleAgent" singleton="false">
+<property name="agentBeans">
+<list>
+<ref bean="ProtocolBean_Agent_2" />
+<ref bean="FairStrategyBean_Agent_2" />
+</list>
+</property>
+</bean>
+<bean name="Agent_3" parent="SimpleAgent" singleton="false">
+<property name="agentBeans">
+<list>
+<ref bean="ProtocolBean_Agent_3" />
+<ref bean="FairStrategyBean_Agent_3" />
+</list>
+</property>
+</bean>
+<bean name="Agent_4" parent="SimpleAgent" singleton="false">
+<property name="agentBeans">
+<list>
+<ref bean="ProtocolBean_Agent_4" />
+<ref bean="FairStrategyBean_Agent_4" />
+</list>
+</property>
+</bean>
+<bean name="Agent_1" parent="SimpleAgent" singleton="false">
+<property name="agentBeans">
+<list>
+<ref bean="ProtocolBean_Agent_1" />
+<ref bean="FairStrategyBean_Agent_1" />
+</list>
+</property>
+</bean>
+<bean name="FairStrategyBean_Agent_2" parent="FairStrategyBean" singleton="false">
+<property name="knownAgentsParam" value="Agent_3,Agent_4,Agent_1" />
+<property name="coalitionsValuesParam" value="Agent_2,Agent_3=6.2;Agent_2,Agent_3,Agent_4,Agent_1=1.0;Agent_2,Agent_4=3.0;Agent_2=3.0;Agent_2,Agent_3,Agent_1=1.0;Agent_2,Agent_4,Agent_1=1.0;Agent_2,Agent_3,Agent_4=10.0;Agent_2,Agent_1=6.0;" />
+</bean>
+<bean name="ProtocolBean_Agent_2" parent="ProtocolBean" singleton="false">
+</bean>
+<bean name="FairStrategyBean_Agent_3" parent="FairStrategyBean" singleton="false">
+<property name="knownAgentsParam" value="Agent_2,Agent_4" />
+<property name="coalitionsValuesParam" value="Agent_2,Agent_3=6.2;Agent_2,Agent_3,Agent_4,Agent_1=1.0;Agent_3,Agent_1=10.0;Agent_3,Agent_4=1.0;Agent_3=1.0;Agent_2,Agent_3,Agent_1=1.0;Agent_3,Agent_4,Agent_1=1.0;Agent_2,Agent_3,Agent_4=10.0;" />
+</bean>
+<bean name="ProtocolBean_Agent_3" parent="ProtocolBean" singleton="false">
+</bean>
+<bean name="FairStrategyBean_Agent_4" parent="FairStrategyBean" singleton="false">
+<property name="knownAgentsParam" value="Agent_2,Agent_3" />
+<property name="coalitionsValuesParam" value="Agent_4,Agent_1=1.0;Agent_2,Agent_3,Agent_4,Agent_1=1.0;Agent_3,Agent_4=1.0;Agent_2,Agent_4=3.0;Agent_4=3.0;Agent_2,Agent_4,Agent_1=1.0;Agent_3,Agent_4,Agent_1=1.0;Agent_2,Agent_3,Agent_4=10.0;" />
+</bean>
+<bean name="ProtocolBean_Agent_4" parent="ProtocolBean" singleton="false">
+</bean>
+<bean name="FairStrategyBean_Agent_1" parent="FairStrategyBean" singleton="false">
+<property name="knownAgentsParam" value="Agent_2" />
+<property name="coalitionsValuesParam" value="Agent_4,Agent_1=1.0;Agent_2,Agent_3,Agent_4,Agent_1=1.0;Agent_3,Agent_1=10.0;Agent_2,Agent_3,Agent_1=1.0;Agent_2,Agent_4,Agent_1=1.0;Agent_3,Agent_4,Agent_1=1.0;Agent_2,Agent_1=6.0;Agent_1=0.0;" />
+</bean>
+<bean name="ProtocolBean_Agent_1" parent="ProtocolBean" singleton="false">
+</bean>
+<bean name="FairStrategyBean" class="beans.FairStrategyBean" abstract="true">
+<property name="logLevel" value="INFO" />
+</bean>
+<bean name="AggressiveStrategyBean" class="beans.AggressiveStrategyBean" abstract="true">
+<property name="logLevel" value="INFO" />
+</bean>
+<bean name="ProtocolBean" class="beans.ProtocolBean" abstract="true">
+<property name="logLevel" value="INFO" />
+</bean>
+</beans>
